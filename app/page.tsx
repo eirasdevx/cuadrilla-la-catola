@@ -56,7 +56,6 @@ function getProximoEvento() {
 ========================= */
 export default function HomePage() {
   const proximoEvento = getProximoEvento()
-  if (!proximoEvento) return null
 
   return (
     <motion.main
@@ -114,7 +113,7 @@ export default function HomePage() {
 
             <div className="flex gap-6">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/cuadrilla_la_catola/"
                 target="_blank"
                 aria-label="Instagram"
                 className="
@@ -184,63 +183,91 @@ export default function HomePage() {
       </section>
 
       {/* ================= PRÓXIMO EVENTO ================= */}
-      <motion.section
+            <motion.section
         className="max-w-6xl mx-auto px-6"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <Link
-          href={`/eventos/${proximoEvento.slug}`}
-          className="
-            group block rounded-3xl overflow-hidden bg-white
-            transition-all duration-300
-            hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30
-          "
-        >
-          <div className="grid md:grid-cols-2">
-            <div className="p-12 text-gray-900">
-              <p className="text-sm uppercase tracking-widest text-dorado-500">
-                El siguiente plan
-              </p>
+        {proximoEvento ? (
+          <Link
+            href={`/eventos/${proximoEvento.slug}`}
+            className="
+              group block rounded-3xl overflow-hidden bg-white
+              transition-all duration-300
+              hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30
+            "
+          >
+            <div className="grid md:grid-cols-2">
+              <div className="p-12 text-gray-900">
+                <p className="text-sm uppercase tracking-widest text-dorado-500">
+                  El siguiente plan
+                </p>
 
-              <h2 className="mt-6 text-4xl font-extrabold text-catola-700">
-                {proximoEvento.titulo}
-              </h2>
+                <h2 className="mt-6 text-4xl font-extrabold text-catola-700">
+                  {proximoEvento.titulo}
+                </h2>
 
-              <p className="mt-4 text-gray-600">
-                {proximoEvento.fecha} · {proximoEvento.lugar}
-              </p>
+                <p className="mt-4 text-gray-600">
+                  {proximoEvento.fecha} · {proximoEvento.lugar}
+                </p>
 
-              <p className="mt-8 text-lg text-gray-700 leading-relaxed">
-                {proximoEvento.descripcion}
-              </p>
+                <p className="mt-8 text-lg text-gray-700 leading-relaxed">
+                  {proximoEvento.descripcion}
+                </p>
 
-              <span
-                className="
-                  inline-flex mt-10 rounded-xl
-                  bg-catola-500 px-8 py-4
-                  text-white font-medium
-                  transition-all duration-300
-                  group-hover:bg-catola-700
-                "
-              >
-                Me apunto →
-              </span>
+                <span
+                  className="
+                    inline-flex mt-10 rounded-xl
+                    bg-catola-500 px-8 py-4
+                    text-white font-medium
+                    transition-all duration-300
+                    group-hover:bg-catola-700
+                  "
+                >
+                  Me apunto →
+                </span>
+              </div>
+
+              <div className="bg-catola-700 p-12 flex flex-col justify-center">
+                <p className="text-lg text-dorado-300">📅 {proximoEvento.fecha}</p>
+                <p className="mt-4 text-lg text-dorado-300">📍 {proximoEvento.lugar}</p>
+                <div className="mt-10 h-1 w-16 bg-dorado-500" />
+                <p className="mt-8 text-catola-50">
+                  Un evento destacado en el calendario de la
+                  <strong> Cuadrilla La Catola</strong>.
+                </p>
+              </div>
             </div>
+          </Link>
+        ) : (
+          <div className="rounded-3xl bg-catola-700 p-12 text-center">
+            <p className="text-sm uppercase tracking-widest text-dorado-300">
+              El siguiente plan
+            </p>
 
-            <div className="bg-catola-700 p-12 flex flex-col justify-center">
-              <p className="text-lg text-dorado-300">📅 {proximoEvento.fecha}</p>
-              <p className="mt-4 text-lg text-dorado-300">📍 {proximoEvento.lugar}</p>
-              <div className="mt-10 h-1 w-16 bg-dorado-500" />
-              <p className="mt-8 text-catola-50">
-                Un evento destacado en el calendario de la
-                <strong> Cuadrilla La Catola</strong>.
-              </p>
-            </div>
+            <h2 className="mt-6 text-3xl font-extrabold text-white">
+              Aún no hay eventos confirmados
+            </h2>
+
+            <p className="mt-4 text-catola-50">
+              Estamos preparando nuevas fechas. Vuelve pronto o revisa la lista completa.
+            </p>
+
+            <Link
+              href="/eventos"
+              className="
+                inline-flex mt-8 rounded-xl
+                bg-dorado-500 px-8 py-4
+                text-catola-900 font-semibold
+                transition hover:opacity-90
+              "
+            >
+              Ver eventos
+            </Link>
           </div>
-        </Link>
+        )}
       </motion.section>
 
       {/* ================= CTA FINAL ================= */}
